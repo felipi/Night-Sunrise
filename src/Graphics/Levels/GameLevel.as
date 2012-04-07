@@ -220,7 +220,6 @@ package Graphics.Levels {
 		//PHYSICS
 		private function updateWorld():void
 		{
-			//LE.Run();
 			//world.Step(1 / 20, GameManager.stage.frameRate);
 			world.Step(1 / 20, FrameRate.fps);
 			
@@ -233,9 +232,6 @@ package Graphics.Levels {
 			while (creationQueue.length > 0) {
 				CreateObject(creationQueue.pop());
 			}
-			
-			//LE.Update();
-			//LE.Stop();
 		}
 		
 		private function SetupBox2DWorld():void {
@@ -265,6 +261,7 @@ package Graphics.Levels {
 			CreateCharacter(actor);
 		}
 		
+		//CREATORS
 		private function CreateCharacter(character : Actor):void {
 			bdef = new b2BodyDef();
 			bdef.fixedRotation = true;
@@ -294,8 +291,7 @@ package Graphics.Levels {
 				if(xml[i].@layer == "back")
 					backLayer.addChild( landscape );
 				else
-					frontLayer.addChild( landscape );
-					
+					frontLayer.addChild( landscape );	
 			}
 		}
 		
@@ -374,8 +370,6 @@ package Graphics.Levels {
 				
 				props.push( { key:xml[i].@name, object:prop } );
 			}
-			
-			//trace(props);
 		}
 		
 		private function CreateActions(xml:XMLList):void

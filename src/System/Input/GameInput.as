@@ -16,16 +16,16 @@ package System.Input
 		protected static const kDDown : int = 51; //3 key
 		protected static const kDLeft : int = 52; //4 key
 		
-		protected static const kSelect : int = Keyboard.ESCAPE; //esc
+		protected static const kSelect : int = Keyboard.TAB; //tab
 		protected static const kStart : int = Keyboard.ENTER; //enter;return
 		
-		protected static const kShoulderLeft : int = 90; //Z key
-		protected static const kShoulderRight : int = Keyboard.SHIFT; //shift
+		protected static const kShoulderLeft : int = Keyboard.SHIFT; //shift
+		protected static const kShoulderRight : int = 82; //S key
 		
 		protected static const kButtonA : int = Keyboard.SPACE; //space
 		protected static const kButtonB : int = 67; //C key
 		protected static const kButtonX : int = 88; //X key
-		protected static const kButtonY : int = 86; //V key
+		protected static const kButtonY : int = 90; //Z key
 		
 	}
 	
