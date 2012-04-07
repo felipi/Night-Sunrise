@@ -63,8 +63,6 @@ package System
 			}
 		}
 		
-		public static var loader : PreloaderScene;
-		
 		public function GameManager()
 		{
 			DTrace("This shouldn't be instantiated");
@@ -82,19 +80,8 @@ package System
 			stage.align = StageAlign.TOP_LEFT;
 			stage.quality = StageQuality.LOW;
 			
-			loader =  new PreloaderScene(new TitleScene(), assetManager);
+			var loader:PreloaderScene =  new PreloaderScene(new TitleScene(), assetManager);
 			stage.addChild(loader);
-			
-			assetManager.Load();
-			assetManager.queue.addEventListener(QueueEvent.COMPLETE, AssetLoadComplete);
-		}
-		
-		static private function AssetLoadComplete(e:QueueEvent):void 
-		{
-			player = new Player();
-			scene = loader.scene;
-			stage.addChild(scene);
-			stage.removeChild(loader);
 		}
 		
 		public static function NextScene(newScene:Class) : void{

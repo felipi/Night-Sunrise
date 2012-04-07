@@ -69,7 +69,6 @@ package Graphics.Scenes
 		
 		private function StartGame(e:Event):void 
 		{
-			//trace("Start Game");
 			GameManager.NextScene(LevelScene);
 			input.removeEventListener(SceneInput.SPACE, StartGame);
 		}

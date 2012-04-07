@@ -4,6 +4,7 @@ package Graphics.Scenes {
 	
 	import System.AssetManager;
 	import System.GameManager;
+	import System.Player;
 	
 	import fdd.events.QueueEvent;
 	
@@ -13,8 +14,7 @@ package Graphics.Scenes {
 	import flash.system.System;
 	
 	/**
-	 * ...
-	 * @author ...
+	 * @author Felipi Medeiros Macedo
 	 */
 	public class PreloaderScene extends GameScene{
 		
@@ -44,11 +44,6 @@ package Graphics.Scenes {
 			var loading : DisplayObject = new LoadSprite();
 			addChild(loading);
 			
-			//var blob_bg:BlobBackground = new BlobBackground(GameManager.resolutionWidth,GameManager.resolutionHeight, 0xAAAAAA); //0x4f2fad
-			//addChild(blob_bg);
-			//blob_bg.alpha = 0.5;
-			//blob_bg.blendMode = BlendMode.OVERLAY;
-			
 			icon = new LogoSprite();
 			icon.x = GameManager.resolutionWidth - icon.width*2;
 			icon.y = GameManager.resolutionHeight - icon.height*2;
@@ -59,16 +54,17 @@ package Graphics.Scenes {
 			addChild(loaderBar);
 			
 			if(assetManager == null){
-				_scene.assetManager.queue.addEventListener(QueueEvent.UPDATE, OnUpdate);
+				scene.assetManager.queue.addEventListener(QueueEvent.UPDATE, OnUpdate);
+				scene.assetManager.queue.addEventListener(QueueEvent.COMPLETE, AssetLoadComplete);
+				scene.assetManager.Load();				
 			} else {
+				assetManager.queue.addEventListener(QueueEvent.COMPLETE, AssetLoadComplete);
 				assetManager.queue.addEventListener(QueueEvent.UPDATE, OnUpdate);
+				assetManager.Load();
 			}
-		}
+		}  
 		
-
-		
-		private function OnUpdate(e:QueueEvent):void 
-		{
+		private function OnUpdate(e:QueueEvent):void {
 			loaderBar.graphics.clear();
 			loaderBar.graphics.beginFill(0x000000);
 			loaderBar.graphics.drawRect(0, 0, 100, 10);
@@ -79,13 +75,12 @@ package Graphics.Scenes {
 			loaderBar.graphics.endFill();
 		}
 		
-		/*public override function AssetLoadComplete(q:QueueEvent):void {
-			addChild( assetManager.Asset("loading") as DisplayObject );
-		}*/
-		
-		/*public function Update(percentage : Number):void {
-			//trace(percentage * 100);
-		}*/
+		public override function AssetLoadComplete(q:QueueEvent):void {
+			GameManager.player = new Player();
+			GameManager.scene = scene;
+			stage.addChild(scene);
+			stage.removeChild(this);
+		}
 		
 	}
 
