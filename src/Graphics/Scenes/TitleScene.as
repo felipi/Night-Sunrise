@@ -32,8 +32,7 @@ package Graphics.Scenes
 			loader = new LoaderScene(this);
 			addChild(loader);
 			
-			var blob_bg:BlobBackground = new BlobBackground(GameManager.resolutionWidth,GameManager.resolutionHeight, 0x555555); //0x4f2fad
-			//var blob_bg:BlobBackground = new BlobBackground(GameManager.currentWidth,GameManager.currentHeight, 0x555555); //0x4f2fad
+			var blob_bg:BlobBackground = new BlobBackground(GameManager.resolutionWidth,GameManager.resolutionHeight, 0x555555);
 			addChild(blob_bg);
 			blob_bg.alpha = 0.5;
 			blob_bg.blendMode = BlendMode.OVERLAY;
@@ -47,7 +46,6 @@ package Graphics.Scenes
 			var xml : XML = new XML(e.target.data);
 			
 			var assets:XMLList = xml.scene.assets.asset;
-			////trace(assets[1].@name);
 			
 			for (var i:uint = 0; i < assets.length(); i++) {
 				assetManager.RegisterAsset(assets[i].@name, assets[i].@type, assets[i].@url);

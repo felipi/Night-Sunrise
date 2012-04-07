@@ -84,6 +84,7 @@ package System
 			stage.addChild(loader);
 		}
 		
+		//Load a new scene
 		public static function NextScene(newScene:Class) : void{
 			var next:GameScene = new newScene();
 			stage.addChild(next);
