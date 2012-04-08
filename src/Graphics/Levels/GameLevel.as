@@ -19,7 +19,7 @@ package Graphics.Levels {
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2World;
 	
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	import Graphics.FX.Filters.FilterCollection;
 	import Graphics.FX.LightingEngine.LE;
 	import Graphics.Props.IPropBase;
@@ -80,7 +80,7 @@ package Graphics.Levels {
 		public var zoom : Number = 1;
 		
 		public var assetManager : AssetManager;
-		private var actor : Actor;
+		private var actor : BaseActor;
 		
 		private var props : Array;
 		private var actions : Array;
@@ -262,7 +262,7 @@ package Graphics.Levels {
 		}
 		
 		//CREATORS
-		private function CreateCharacter(character : Actor):void {
+		private function CreateCharacter(character : BaseActor):void {
 			bdef = new b2BodyDef();
 			bdef.fixedRotation = true;
 			bdef.position = new b2Vec2(FlashToBox(character.x), FlashToBox(character.y) - FlashToBox(character.height)/2);

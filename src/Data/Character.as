@@ -1,6 +1,6 @@
 package Data
 {
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	
 	import flash.display.Sprite;
 

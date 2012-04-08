@@ -4,7 +4,7 @@ package Physics {
 	import Box2D.Dynamics.b2Body;
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	import Graphics.Levels.GameLevel;
 	/**
 	 * ...
@@ -13,9 +13,9 @@ package Physics {
 
 	 	public class PhysicsActor{
 		public var body:b2Body;
-		public var graphic:Actor;
+		public var graphic:BaseActor;
 
-		public function PhysicsActor(b:b2Body, g:Actor){
+		public function PhysicsActor(b:b2Body, g:BaseActor){
 			body = b;
 			graphic = g;
 			

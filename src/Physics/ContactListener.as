@@ -2,7 +2,7 @@ package Physics {
 	import Box2D.Collision.b2ContactPoint;
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.Contacts.b2Contact;
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	
 	/**
 	 * ...
@@ -18,7 +18,8 @@ package Physics {
 		override public function Add(point:b2ContactPoint):void {
 			super.Add(point);
 			if (point.shape1.GetUserData() is GroundSensor && !point.shape2.IsSensor()) {
-				(point.shape1.GetUserData() as GroundSensor).parentPhysicsActor.graphic.Idle();
+				//(point.shape1.GetUserData() as GroundSensor).parentPhysicsActor.graphic.Idle();
+				(point.shape1.GetUserData() as GroundSensor).parentPhysicsActor.graphic.PerformAction("IDLE");
 				(point.shape1.GetUserData() as GroundSensor).parentPhysicsActor.graphic.canJump = true;
 				(point.shape1.GetUserData() as GroundSensor).parentPhysicsActor.graphic.isColliding = true;
 			}

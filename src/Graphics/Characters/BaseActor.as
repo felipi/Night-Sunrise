@@ -25,9 +25,10 @@ package Graphics.Characters
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
+	import flash.utils.Dictionary;
 	import flash.utils.setInterval;
 
-	public class Actor extends Sprite
+	public class BaseActor extends Sprite
 	{	
 		public static const FRAME_RENDERED : String = "frameRendered";
 		
@@ -50,11 +51,13 @@ package Graphics.Characters
 		public var falling : Boolean;
 		public var jumping : Boolean;
 		public var jumpHeight : Number = 2;
-		private var jumpCount : Number = 0;
+		protected var jumpCount : Number = 0;
 		
 		public var physicsActor : PhysicsActor;
 		public var isColliding : Boolean = false;
-				
+		
+		protected var registeredActions:Dictionary = new Dictionary();
+		
 		public function get currentState():String { return _currentState; }
 		public function set currentState(value:String): void {
 			if(_currentState == value) return;
@@ -62,7 +65,7 @@ package Graphics.Characters
 			currentFrame = 0;
 		}
 		
-		public function Actor(sheetName : String)
+		public function BaseActor(sheetName : String)
 		{
 			var idle :State = new State("idle", 0, 0);
 			states[idle.name] = idle;
@@ -87,8 +90,7 @@ package Graphics.Characters
 			
 			//addEventListener(Event.ADDED_TO_STAGE, AddedToStage);
 			this.name = "ACTOR";
-			
-		
+
 		}
 		
 		private function AddedToStage(e:Event): void {
@@ -150,9 +152,6 @@ package Graphics.Characters
 			var min : Point = new Point(40, 40);
 			
 			var pos : Point = this.localToGlobal(new Point(0, 0));
-			GameManager.DTrace("Pos.X / Pos.Y",pos.x, pos.y);
-			GameManager.DTrace("Max.X / Max.Y",max.x, max.y);
-			GameManager.DTrace("Min.X / Min.Y",min.x, min.y);
 				
 			var scrollx : Number = 0;
 			var scrolly : Number = 0;
@@ -202,33 +201,13 @@ package Graphics.Characters
 			dispatchEvent(new Event(FRAME_RENDERED));
 		}
 		
-		//Actions
-		public function Idle(): void {
-			currentState = "idle";
-			speedx = 0;
+		public function PerformAction(action:String, ...args): void {
+			if(registeredActions[action] != null){
+				if(args.length == 0)
+					registeredActions[action]();
+				else registeredActions[action](args[0]);
+			}
 		}
-		
-		public function Walk(walkRight:Boolean): void {
-			currentState = "walk";
-			facingRight = walkRight;
-			
-			var direction : Number = walkRight ? 1 : -1;
-			speedx = direction * (animationSpeed/8);
-		}
-		
-		public function Climb(): void {
-			this.y -= animationSpeed/6;
-		}
-		
-		public function Jump(): void {
 
-			if (physicsActor == null || !canJump) return;
-			
-			jumpCount = jumpHeight;
-			jumping = true;
-			
-			physicsActor.body.ApplyImpulse(new b2Vec2(0, jumpHeight * -100 ), physicsActor.body.GetLocalCenter());
-		}
-		
 	}
 }

@@ -1,6 +1,6 @@
 package Graphics.FX.LightingEngine
 {
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	
 	import System.FrameRate;
 	import System.GameManager;
@@ -170,7 +170,7 @@ package Graphics.FX.LightingEngine
 			}
 			
 			if(animated){
-				object.addEventListener(Actor.FRAME_RENDERED, function():void{
+				object.addEventListener(BaseActor.FRAME_RENDERED, function():void{
 					if(container == null){
 						object.removeChild(lightmap);
 					}else{
@@ -178,7 +178,7 @@ package Graphics.FX.LightingEngine
 					}
 					trace("ANIMATED BLOOM:", lightmap.x, lightmap.y, lightmap.width, lightmap.height);
 					AddBloomToObject(object,animated,container);
-					object.removeEventListener(Actor.FRAME_RENDERED, arguments.callee);
+					object.removeEventListener(BaseActor.FRAME_RENDERED, arguments.callee);
 				});
 				//setTimeout(function(){ object.removeChild(lightmap); AddBloomToObject(object,animated); trace("ANIMATED BLOOM"); }, GameManager.stage.frameRate);
 			}

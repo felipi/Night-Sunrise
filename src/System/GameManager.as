@@ -4,7 +4,7 @@ package System
 	import Data.Character;
 	import Data.Global;
 	
-	import Graphics.Characters.Actor;
+	import Graphics.Characters.BaseActor;
 	import Graphics.FX.LightingEngine.LE;
 	import Graphics.Levels.GameLevel;
 	import Graphics.Scenes.GameScene;
@@ -45,7 +45,7 @@ package System
 		public static var resolutionWidth : Number = 720;
 		public static var resolutionHeight : Number = 480;
 		public static var levelName : String  = Global.startingScene;
-		public static function get actor (): Actor { return player.actor;}
+		public static function get actor (): BaseActor { return player.actor;}
 		public static function get character ():Character { return player.character; }
 		
 		public static function get currentWidth(): Number{
