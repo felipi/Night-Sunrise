@@ -67,16 +67,6 @@ package Graphics.Characters
 		
 		public function BaseActor(sheetName : String)
 		{
-			var idle :State = new State("idle", 0, 0);
-			states[idle.name] = idle;
-			currentState = idle.name;
-			var walk:State = new State("walk", 10,13);
-			states[walk.name] = walk;
-			var jump:State = new State("jump", 15, 15);
-			states[jump.name] = jump;
-			var fall:State = new State("fall", 14, 14);
-			states[fall.name] = fall;
-			
 			spritesheetPath = sheetName;
 			
 			var sprites : DisplayObject = GameManager.assetManager.Asset(sheetName) as DisplayObject;
@@ -91,6 +81,15 @@ package Graphics.Characters
 			//addEventListener(Event.ADDED_TO_STAGE, AddedToStage);
 			this.name = "ACTOR";
 
+		}
+		
+		protected function RegisterAction(name:String, callback:Function): void{
+			registeredActions[name] = callback;
+		}
+		
+		protected function RegisterState(name:String, firstFrame:int, lastFrame:int): void{
+			var newstate:State = new State(name, firstFrame, lastFrame);
+			states[name] = newstate;
 		}
 		
 		private function AddedToStage(e:Event): void {
@@ -141,14 +140,11 @@ package Graphics.Characters
 		}
 		
 		public function Update(): void {
-			//var max : Point = new Point(GameManager.resolutionWidth/2 + 40, GameManager.resolutionHeight/2 + 40);
-			//var min : Point = new Point(GameManager.resolutionWidth/3 + 40, GameManager.resolutionHeight/3 + 40);
 			var zoom : Number = 1;
 			if (GameManager.level != null)
 				zoom = 1/GameManager.level.zoom;
 	
 			var max : Point = new Point((GameManager.currentWidth*zoom)/2 + 40, (GameManager.currentHeight*zoom)/2 + 40);
-			//var min : Point = new Point((GameManager.currentWidth*zoom)/3 + 40, (GameManager.currentHeight*zoom)/3 + 40);
 			var min : Point = new Point(40, 40);
 			
 			var pos : Point = this.localToGlobal(new Point(0, 0));
@@ -156,6 +152,7 @@ package Graphics.Characters
 			var scrollx : Number = 0;
 			var scrolly : Number = 0;
 
+			//TODO: move this out of here
 			if(physicsActor != null){
 				if ( (pos.x > max.x && speedx > 0) || (pos.x < min.x && speedx < 0) ) {
 					scrollx = -physicsActor.body.m_linearVelocity.x;
@@ -167,19 +164,7 @@ package Graphics.Characters
 			}
 			
 			if(GameManager.scene is LevelScene)
-				(GameManager.scene as LevelScene).Scroll(scrollx, scrolly);
-			
-			if (physicsActor == null) return;
-			physicsActor.body.WakeUp();
-			physicsActor.body.m_linearVelocity.x = speedx;
-			
-			if (physicsActor.body.m_linearVelocity.y < 0 && !isColliding) {
-				currentState = "jump";
-			}
-			if (physicsActor.body.m_linearVelocity.y > 0 && !isColliding) {
-				currentState = "fall";
-			}
-				
+				(GameManager.scene as LevelScene).Scroll(scrollx, scrolly);				
 		}
 		
 		public function Render(): void {

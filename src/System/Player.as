@@ -33,17 +33,16 @@ package System
 			input.addEventListener(ActorInput.WALK_LEFT, WalkLeft);
 			input.addEventListener(ActorInput.WALK_RIGHT, WalkRight);
 			input.addEventListener(ActorInput.CLIMB, Climb);
-			//input.addEventListener(ActorInput.FALL, Fall);
 			input.addEventListener(ActorInput.IDLE, Idle);
 			input.addEventListener(ActorInput.JUMP, Jump);
+			input.addEventListener(ActorInput.BLOCK, Block);
 		}
 		
-		//private function WalkLeft(e:Event): void{ actor.Walk(false); }
 		private function WalkLeft(e:Event): void{ actor.PerformAction("WALK", false); }
 		private function WalkRight(e:Event): void{ actor.PerformAction("WALK", true); }
 		private function Climb(e:Event): void{ actor.PerformAction("CLIMB"); }
-		//private function Fall(e:Event): void{ actor.Fall(); }
 		private function Idle(e:Event): void{ actor.PerformAction("IDLE"); }
 		private function Jump(e:Event): void{ actor.PerformAction("JUMP"); }
+		private function Block(e:Event): void{ actor.PerformAction("BLOCK"); }
 	}
 }

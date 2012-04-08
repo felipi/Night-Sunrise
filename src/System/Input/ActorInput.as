@@ -20,6 +20,7 @@ package System.Input
 		public static const FALL : String = "fall";
 		public static const IDLE : String = "idle";
 		public static const JUMP : String = "jump";
+		public static const BLOCK : String = "block"; 
 		
 		private var key : KeyPoll;
 		private var spacePressed:Boolean = false;
@@ -50,9 +51,11 @@ package System.Input
 				dispatchEvent(new Event(JUMP));
 				spacePressed = true;
 			}
-			
 			if (key.isUp(kButtonA)) {
 				spacePressed = false;
+			}
+			if(key.isDown(kShoulderRight)) {
+				dispatchEvent(new Event(BLOCK));
 			}
 		}
 		
@@ -62,7 +65,7 @@ package System.Input
 		
 		private function Click(me:MouseEvent) : void {
 			if(typeof(GameManager.scene) != "LevelScene") return;
-			LE.Trigger();
+				LE.Trigger();
 		}
 		
 	}

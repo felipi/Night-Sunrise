@@ -20,7 +20,7 @@ package System.Input
 		protected static const kStart : int = Keyboard.ENTER; //enter;return
 		
 		protected static const kShoulderLeft : int = Keyboard.SHIFT; //shift
-		protected static const kShoulderRight : int = 82; //S key
+		protected static const kShoulderRight : int = 83; //S key
 		
 		protected static const kButtonA : int = Keyboard.SPACE; //space
 		protected static const kButtonB : int = 67; //C key
